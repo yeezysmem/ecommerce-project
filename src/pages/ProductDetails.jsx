@@ -76,7 +76,6 @@ const ProductDetails = ({products}) => {
                     <h3>{product.description}</h3>
                     <h3>Price: {product.price}</h3>
                     <Grid item xs={4}> <StyledButton onClick={AddToCart}><ButtonText>Add to cart</ButtonText></StyledButton></Grid>
-                    {/*<Grid item xs={4}> <StyledButton onClick={handleRemove}><ButtonText>Remove</ButtonText></StyledButton></Grid>*/}
                 </Grid>
 
             </Grid> : <Rings height="80"
