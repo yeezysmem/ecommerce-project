@@ -13,7 +13,6 @@ import AllProducts from "../pages/AllProducts";
 const Router = () => {
     return (
         <Routes>
-            <Route path="/" element={<Navigate to='/home'/>}/>
             <Route path="/" element={<Home/>}/>
             <Route path="/cart" element={<Cart/>}/>
             <Route path="/login" element={<Login/>}/>
