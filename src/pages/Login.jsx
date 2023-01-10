@@ -52,7 +52,7 @@ const Login = () => {
         // setError("");
         try {
             await logIn(email, password);
-            navigate("/home");
+            navigate("/");
         } catch (err) {
             console.log(err.message);
         }
@@ -61,7 +61,7 @@ const Login = () => {
         e.preventDefault();
         try {
             await googleSignIn();
-            navigate("/home");
+            navigate("/");
         } catch (error) {
             console.log(error.message);
         }
@@ -73,7 +73,7 @@ const Login = () => {
             .then((userCredential) => {
                 // Signed in
                 const user = userCredential.user;
-                navigate("/home")
+                navigate("/")
                 console.log(user);
             })
             .catch((error) => {

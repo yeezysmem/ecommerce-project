@@ -42,7 +42,7 @@ const ProductItem = ({products}) => {
             <Grid container justifyContent="flex-start" spacing={5}>
                 {products.map((product) => {
                     return (
-                        <Grid item xs={6} key={product.id}>
+                        <Grid item xs={2} key={product.id}>
                             <Link to={`/product/${product.id}`}>
                             <ProductCard>
                                 <img style={{width:"100%", height:"auto", borderRadius:10}} src={product.image}/>
