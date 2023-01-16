@@ -1,55 +1,58 @@
-import React, {useEffect, useState} from 'react'
-import {getAuth, GoogleAuthProvider} from "firebase/auth";
-import {collection, getDocs} from "firebase/firestore";
-import {db} from "../firebaseConfigs/firebaseConfig";
-import {Container, Grid} from "@mui/material";
-import {useUserAuth} from "../context/UserAuthContextProvider.jsx";
-import styled from 'styled-components'
+import React, { useCallback, useEffect, useState } from "react";
+import { getAuth, GoogleAuthProvider } from "firebase/auth";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../firebaseConfigs/firebaseConfig";
+import { Container, Grid } from "@mui/material";
+import { useUserAuth } from "../context/UserAuthContextProvider.jsx";
 import CartCard from "../common/CartCard/CartCard.jsx";
 
-const ProductCard = styled.div`
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-  background: #1E1F1A ;
-  border-radius: 20px;
-  padding: 10px;
-`;
-
 const Cart = () => {
-    const provider = new GoogleAuthProvider();
-    const auth = getAuth();
-    const {user} = useUserAuth();
-    const [cartData, setCartData] = useState([]);
+  const { user } = useUserAuth();
+  const [cartData, setCartData] = useState([]);
+  const cartArray = [];
 
-    useEffect(() => {
-        if (user) {
-            const getCardData = async () => {
-                const cartArray = [];
-                const path = `cart-${user.uid}`;
-                getDocs(collection(db, path)).then((querySnapshot) => {
-                    querySnapshot.forEach((doc) => {
-                        cartArray.push({...doc.data(), id: doc.id});
-                    });
-                    setCartData(cartArray);
-                });
-            }
-            getCardData();
-        }
-    }, [user,cartData]);
+  const getCardData = useCallback(() => {
+    const path = `cart-${user.uid}`;
+    getDocs(collection(db, path)).then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        cartArray.push({ ...doc.data(), id: doc.id });
+      });
+      setCartData(cartArray);
+      console.log(cartArray, "cartArray");
+    });
+  }, [user, cartArray]);
 
+  useEffect(() => {
+    getCardData();
+  }, [user]);
+  console.log(cartData, "cartData");
 
-    return (
-        <Container maxWidth="xl">
-            <Grid container spacing={12}>
-                {cartData ? <div>{cartData.map((item) => (<CartCard key={item.id} itemData={item} />))}</div> : <p>Your cart is empty</p>}
-            </Grid>
-            <Grid container>
-               <Grid item>
-                   Total: 2000$
-               </Grid>
-            </Grid>
-        </Container>
-    )
-}
+  const total = cartData.reduce(
+    (accumulator, current) =>
+      accumulator + current.product.price * current.quantity,
+    0
+  );
 
-export default Cart
+  return (
+    <Container maxWidth="xl">
+      <Grid container justifyContent="space-beetwen">
+        {cartData ? (
+          <Grid item xs={12}>
+            {cartData.map((item) => (
+              <CartCard key={item.id} itemData={item} />
+            ))}
+          </Grid>
+        ) : (
+          <p>Your cart is empty</p>
+        )}
+      </Grid>
+      <Grid container justifyContent="flex-end">
+        <Grid item>
+          <h2>total: {total}</h2>
+        </Grid>
+      </Grid>
+    </Container>
+  );
+};
 
+export default Cart;

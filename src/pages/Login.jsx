@@ -24,6 +24,7 @@ const StyledButton = styled.button`
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  margin-bottom:20px;
 
   &:hover {
     opacity: 0.7;
@@ -222,8 +223,7 @@ const Login = () => {
                                 </Grid>
                             </Grid>
                             <Grid item xs={12}>
-                                <button onClick={handleSubmit}>logiin</button>
-                                <SumbitButton buttonText="Sumbit"/>
+                                <SumbitButton onClick={handleSubmit} buttonText="Sumbit"/>
                                 <Divider>or</Divider>
                                 <StyledButton onClick={handleGoogleSignIn}><GoogleIcon/><ButtonText>sign in with
                                     Google</ButtonText></StyledButton>

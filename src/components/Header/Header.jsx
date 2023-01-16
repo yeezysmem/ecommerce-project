@@ -2,6 +2,7 @@ import React from "react";
 import {Link, useNavigate} from "react-router-dom";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import AddBoxIcon from '@mui/icons-material/AddBox';
 import {Container, Grid,} from "@mui/material";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import {auth} from "../../firebaseConfigs/firebaseConfig";
@@ -85,7 +86,7 @@ const Header = () => {
                             <Grid container alignItems="center" justifyContent="space-between" columnSpacing={1}>
                                 <Grid item>
                                     <Link to="/addProduct">
-                                        <AddCircleIcon fontSize='large'/>
+                                        <AddBoxIcon fontSize='large'/>
                                     </Link>
                                 </Grid>
                                 <Grid item>
