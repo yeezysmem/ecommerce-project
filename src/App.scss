@@ -2,25 +2,53 @@
     font-family: "MontserratThin";
     src: url('./assets/fonts/Montserrat/Montserrat-Thin.ttf');
 }
+
 @font-face {
     font-family: 'MontserratRegular';
     src: url('./assets/fonts/Montserrat/Montserrat-Regular.ttf');
 }
+
 @font-face {
     font-family: 'MontserratMedium';
     src: url('./assets/fonts/Montserrat/Montserrat-Medium.ttf');
 }
+
 @font-face {
     font-family: "MontserratSemiBold";
     src: url('./assets/fonts/Montserrat/Montserrat-SemiBoldItalic.ttf');
 }
 
+@font-face {
+    font-family: "SatoshiRegular";
+    src: url('./assets/fonts/Satoshi/Satoshi-Regular.otf');
+}
+
+@font-face {
+    font-family: "SatoshiLight";
+    src: url('./assets/fonts/Satoshi/Satoshi-Light.otf');
+}
+
+@font-face {
+    font-family: "SatoshiMedium";
+    src: url('./assets/fonts/Satoshi/Satoshi-Medium.otf');
+}
+
+@font-face {
+    font-family: "SatoshiBold";
+    src: url('./assets/fonts/Satoshi/Satoshi-Bold.otf');
+}
 
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 body {
-    background-color: #F7F9FA;
-    font-family: 'MontserratRegular';
+    font-family: 'SatoshiRegular';
     font-size: 20px;
+    color:#010101;
+    background-color: #fff;
 
 }
 
