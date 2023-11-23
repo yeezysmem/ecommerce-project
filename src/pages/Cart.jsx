@@ -18,20 +18,22 @@ const Cart = () => {
         cartArray.push({ ...doc.data(), id: doc.id });
       });
       setCartData(cartArray);
-      console.log(cartArray, "cartArray");
     });
   }, [user, cartArray]);
 
   useEffect(() => {
     getCardData();
-  }, [user]);
-  console.log(cartData, "cartData");
+  }, [user, getCardData]);
 
-  const total = cartData.reduce(
-    (accumulator, current) =>
-      accumulator + current.product.price * current.quantity,
-    0
-  );
+  // write function total price
+  const totalPrice = () => {
+    let total = 0;
+    cartData.map((item) => {
+      total += item.price * item.quantity;
+    });
+    return total;
+  };
+  const total = totalPrice();
 
   return (
     <Container maxWidth="xl">

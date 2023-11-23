@@ -36,6 +36,24 @@ const ButtonText = styled.span`
   margin-left: 10px;
 `;
 
+const StyledTitle = styled.h2`
+  font-size: 35px;
+  font-family: "SatoshiMedium";
+  text-align: center;
+`;
+
+const StyledLoadingText = styled.p`
+  font-size: 20px;
+  font-family: "SatoshiMedium";
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  span {
+    font-family: "SatoshiRegular";
+    font-size: 18px;
+  }
+`;
+
 const AddProduct = () => {
   const { user } = useUserAuth();
 
@@ -131,7 +149,7 @@ const AddProduct = () => {
               >
                 <Grid container>
                   <Grid item xs={12}>
-                    <h3>Add Product</h3>
+                    <StyledTitle>Add Product</StyledTitle>
                   </Grid>
                   <Grid item xs={12}>
                     {/* {successMsg && (
@@ -150,9 +168,6 @@ const AddProduct = () => {
                   <Grid item xs={12}>
                     <Grid container>
                       <Grid item xs={12}>
-                        <label htmlFor="productTitle">Product Title</label>
-                      </Grid>
-                      <Grid item xs={12}>
                         <TextField
                           id="productTitle"
                           name="productTitle"
@@ -168,9 +183,6 @@ const AddProduct = () => {
                       </Grid>
                     </Grid>
                     <Grid container>
-                      <Grid item xs={12}>
-                        <label htmlFor="productType">Product Type</label>
-                      </Grid>
                       <Grid item xs={12}>
                         <TextField
                           id="productType"
@@ -188,9 +200,6 @@ const AddProduct = () => {
                     </Grid>
                     <Grid container>
                       <Grid item xs={12}>
-                        <label htmlFor="brandName">Brand</label>
-                      </Grid>
-                      <Grid item xs={12}>
                         <TextField
                           id="brandName"
                           name="brandName"
@@ -206,9 +215,6 @@ const AddProduct = () => {
                       </Grid>
                     </Grid>
                     <Grid container>
-                      <Grid item xs={12}>
-                        <label htmlFor="price">Price</label>
-                      </Grid>
                       <Grid item xs={12}>
                         <TextField
                           id="price"
@@ -226,9 +232,6 @@ const AddProduct = () => {
                     </Grid>
                     <Grid container>
                       <Grid item xs={12}>
-                        <label htmlFor="description">Description</label>
-                      </Grid>
-                      <Grid item xs={12}>
                         <TextField
                           id="description"
                           name="description"
@@ -245,9 +248,6 @@ const AddProduct = () => {
                     </Grid>
                     <Grid container>
                       <Grid item xs={12}>
-                        <label htmlFor="image">Image</label>
-                      </Grid>
-                      <Grid item xs={12}>
                         <TextField
                           id="image"
                           name="image"
@@ -255,13 +255,14 @@ const AddProduct = () => {
                           onChange={handleChange}
                           onBlur={formik.handleBlur}
                           value={formik.values.image}
-                          variant="outlined"
                           fullWidth={true}
                           margin="normal"
+                          size="small"
+                          variant="outlined"
                         />
                       </Grid>
                       <Grid item xs={12}>
-                        <span>{percent}% Uploaded</span>
+                        <StyledLoadingText>{percent}%<span> Uploaded</span></StyledLoadingText>
                       </Grid>
                     </Grid>
                   </Grid>

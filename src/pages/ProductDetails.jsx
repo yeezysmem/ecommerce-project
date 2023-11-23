@@ -8,25 +8,58 @@ import { useUserAuth } from "../context/UserAuthContextProvider.jsx";
 import styled from "styled-components";
 
 const StyledButton = styled.button`
+  margin-top: 40px;
   background-color: #000;
-  border-radius: 8px;
   padding: 15px 0;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-
+  transition: all 0.5s ease;
+  border:none;
   &:hover {
-    opacity: 0.7;
+    transition: all 0.5s ease;
+    background-color: #D0FD11;
   }
+  &:hover span {
+    color: #000;
+    transition: all 0.5s ease;
+  }
+ 
 `;
 
 const ButtonText = styled.span`
   color: #fff;
   font-size: 19px;
-  font-family: "MontserratSemiBold";
+  font-family: "SatoshiMedium";
   margin-left: 10px;
+  transition: all 0.5s ease;
+  
+
+`;
+
+const StyledText = styled.p`
+  font-family: "SatoshiBold";
+  font-size: 16px;
+  color: #1a1a1a;
+  padding: 5px 0;
+  span {
+    font-family: "SatoshiBold";
+    font-size: 20px;
+    color: #1a1a1a;
+  }
+`;
+
+const StyledTitle = styled.h2`
+  font-family: "SatoshiBold";
+  font-size: 40px;
+  color: #1a1a1a;
+  padding: 5px 0;
+  span {
+    color: #D0FD11;
+  }
+  
 `;
 
 const ProductDetails = ({ products }) => {
@@ -64,25 +97,23 @@ const ProductDetails = ({ products }) => {
     <Container>
       {product ? (
         <Grid container key={id} columnSpacing={6}>
-          <Grid item xs={6}>
+          <Grid item xs={12} sm={6}>
             <img
               src={product.image}
               style={{
-                border: "2px solid #000",
-                borderRadius: 25,
                 width: "100%",
                 height: "auto",
               }}
               alt="image"
             ></img>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} sm={6}>
             <p>{successMsg}</p>
-            <h1>{product.productTitle}</h1>
-            <h4>Brand: {product.brandName}</h4>
+            <StyledTitle>{product.productTitle}<span>.</span> </StyledTitle>
+            <StyledText>Brand: <span>{product.brandName}</span></StyledText>
             <h3>{product.description}</h3>
-            <h3>Price: {product.price}</h3>
-            <Grid item xs={4}>
+            <StyledText>Price: <span>{product.price}</span></StyledText>
+            <Grid item xs={12}>
               {" "}
               <StyledButton onClick={AddToCart}>
                 <ButtonText>Add to cart</ButtonText>

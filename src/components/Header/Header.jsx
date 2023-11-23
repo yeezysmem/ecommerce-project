@@ -1,26 +1,43 @@
 import React from "react";
-import {Link, useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import AddBoxIcon from '@mui/icons-material/AddBox';
-import {Container, Grid,} from "@mui/material";
+import { Container, Grid, } from "@mui/material";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import {auth} from "../../firebaseConfigs/firebaseConfig";
+import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
+import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
+import { auth } from "../../firebaseConfigs/firebaseConfig";
 import styled from "styled-components";
-import {useUserAuth} from "../../context/UserAuthContextProvider.jsx";
+import { useUserAuth } from "../../context/UserAuthContextProvider.jsx";
 
 const StyledHeader = styled.nav`
   display: flex;
   position: static;
   margin-bottom: 80px;
   padding: 15px 0;
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  border-bottom: 0.5px solid #F4F4F4;
 `;
 
 
 const StyledLogo = styled.div`
   font-size: 30px;
   font-family: "MontserratSemiBold";
+  cursor: pointer;
+  transition: 0.3s;
+  span {
+    color: #D0FD11;
+    transition: 0.3s;
+  }
+  &:hover {
+    padding-top: 10px;
+    transition: 0.3s;
+  }
+ 
+  &:hover span {
+    color: #000;
+    transition: 0.3s;
+  }
 `;
 
 const LoginButton = styled.button`
@@ -43,7 +60,7 @@ const settings = ["Profile", "Account", "Dashboard", "Logout"];
 const Header = () => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
-    const {user} = useUserAuth();
+    const { user } = useUserAuth();
 
     const handleOpenUserMenu = (event) => {
         setAnchorElUser(event.currentTarget);
@@ -64,14 +81,14 @@ const Header = () => {
                 <Grid container alignItems="center" justifyContent="space-between">
                     <Grid item xs={3}>
                         <Link to="/">
-                            <StyledLogo>Ecommerce</StyledLogo>
+                            <StyledLogo>BR.<span>F</span></StyledLogo>
                         </Link>
                     </Grid>
                     {!user && (
                         <Grid item>
                             <Grid container alignItems="center" justifyContent="center">
                                 <Grid item>
-                                    <AccountCircleIcon fontSize="large"/>
+                                    <AccountCircleIcon fontSize="medium" />
                                 </Grid>
                                 <Grid item>
                                     <Link to="/login">
@@ -86,26 +103,26 @@ const Header = () => {
                             <Grid container alignItems="center" justifyContent="space-between" columnSpacing={1}>
                                 <Grid item>
                                     <Link to="/addProduct">
-                                        <AddBoxIcon fontSize='large'/>
+                                        <AddBoxOutlinedIcon fontSize='medium' />
                                     </Link>
                                 </Grid>
                                 <Grid item>
                                     <Link to="/cart">
-                                        <ShoppingBasketIcon fontSize='large'/>
+                                        <ShoppingBagOutlinedIcon fontSize='medium' />
                                     </Link>
                                 </Grid>
                                 <Grid item>
                                     <Link to="/profile">
                                         <img
-                                            style={{borderRadius: 50, border: "1.5px solid #000"}}
-                                            width={35}
-                                            height={35}
+                                            style={{ borderRadius: 50}}
+                                            width={25}
+                                            height={25}
                                             src={user.photoURL}
                                         />
                                     </Link>
                                 </Grid>
-                                <LoginButton onClick={handleLogOut}>Log Out</LoginButton>
-                            </Grid>
+                                {/* <LoginButton onClick={handleLogOut}>Log Out</LoginButton> */}
+                                </Grid>
                         </Grid>
                     )}
                 </Grid>

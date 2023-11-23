@@ -1,19 +1,19 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 
-import {useFormik} from "formik";
+import { useFormik } from "formik";
 import * as Yup from "yup";
-import {Link, useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
     getAuth,
     GoogleAuthProvider,
     signInWithEmailAndPassword,
     signInWithPopup
 } from "firebase/auth";
-import {Alert, Container, Divider, Grid, TextField} from "@mui/material";
+import { Alert, Container, Divider, Grid, TextField } from "@mui/material";
 import GoogleIcon from "@mui/icons-material/Google";
 import SumbitButton from "../common/SumbitButton/SumbitButton";
 import styled from "styled-components";
-import {useUserAuth} from "../context/UserAuthContextProvider.jsx";
+import { useUserAuth } from "../context/UserAuthContextProvider.jsx";
 
 const StyledButton = styled.button`
   background-color: #fff;
@@ -32,11 +32,24 @@ const StyledButton = styled.button`
 `;
 
 const ButtonText = styled.span`
-  color: #000;
+  color: #010101;
   font-size: 19px;
-  font-family: "MontserratSemiBold";
+  font-family: "SatoshiMedium";
   margin-left: 10px;
 `;
+
+const FormTitle = styled.h2`
+    font-size: 35px;
+    font-family: "SatoshiMedium";
+    text-align: center;
+    margin-top:0;
+`;
+
+const InputLabel = styled.label`
+    font-size: 18px;
+    font-family: "SatoshiMedium";
+`;
+
 
 
 const Login = () => {
@@ -151,16 +164,17 @@ const Login = () => {
                 <Grid container justifyContent="center">
                     <Grid
                         item
-                        sm={5}
+                        sm={10}
+                        md={8}
                         style={{
                             boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
                             padding: 40,
                             borderRadius: 20,
                         }}
                     >
-                        <Grid container>
+                        <Grid container spacing={1}>
                             <Grid item sm={12}>
-                                <h2>Sign In</h2>
+                                <FormTitle>Sign In</FormTitle>
                             </Grid>
                             <Grid item xs={12}>
                                 {successMsg && (
@@ -179,14 +193,14 @@ const Login = () => {
                             <Grid item xs={12}>
                                 <Grid container>
                                     <Grid item xs={12}>
-                                        <label htmlFor="email">Email</label>
+                                        <InputLabel htmlFor="email">Email</InputLabel>
                                     </Grid>
                                     <Grid item xs={12}>
                                         <TextField
                                             id="email"
                                             name="email"
                                             type="text"
-                                            placeholder="Email"
+                                            placeholder="Your Email"
                                             onChange={(e) => setEmail(e.target.value)}
                                             onBlur={formik.handleBlur}
                                             // value={formik.values.email}
@@ -202,14 +216,14 @@ const Login = () => {
                             <Grid item xs={12}>
                                 <Grid container>
                                     <Grid item xs={12}>
-                                        <label htmlFor="password">Password</label>
+                                        <InputLabel htmlFor="password">Password</InputLabel>
                                     </Grid>
                                     <Grid item xs={12}>
                                         <TextField
                                             id="password"
                                             name="password"
                                             type="password"
-                                            placeholder="Password"
+                                            placeholder="Your password"
                                             onChange={(e) => setPassword(e.target.value)}
                                             onBlur={formik.handleBlur}
                                             // value={formik.values.password}
@@ -223,9 +237,9 @@ const Login = () => {
                                 </Grid>
                             </Grid>
                             <Grid item xs={12}>
-                                <SumbitButton onClick={handleSubmit} buttonText="Sumbit"/>
+                                <SumbitButton onClick={handleSubmit} buttonText="Sumbit" />
                                 <Divider>or</Divider>
-                                <StyledButton onClick={handleGoogleSignIn}><GoogleIcon/><ButtonText>sign in with
+                                <StyledButton onClick={handleGoogleSignIn}><GoogleIcon /><ButtonText>sign in with
                                     Google</ButtonText></StyledButton>
                                 <Link to="/signup">Create new Account</Link>
                             </Grid>

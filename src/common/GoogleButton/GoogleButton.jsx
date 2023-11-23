@@ -13,15 +13,17 @@ const StyledButton = styled.button`
   justify-content:center;
   align-items:center;
   cursor: pointer;
+  transition: all .5s ease;
   &:hover {
     opacity: 0.7;
+    transition: all .5s ease;
   }
 `;
 
 const ButtonText = styled.span`
   color: #000;
   font-size: 19px;
-  font-family: "MontserratSemiBold";
+  font-family: "SatoshiBold";
   margin-left:10px;
 `;
 
