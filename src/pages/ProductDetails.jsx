@@ -6,6 +6,7 @@ import { Container, Grid } from "@mui/material";
 import { Rings } from "react-loader-spinner";
 import { useUserAuth } from "../context/UserAuthContextProvider.jsx";
 import styled from "styled-components";
+import SelectSize from "../common/SelectSize/SelectSize.jsx";
 
 const StyledButton = styled.button`
   margin-top: 40px;
@@ -17,16 +18,17 @@ const StyledButton = styled.button`
   align-items: center;
   cursor: pointer;
   transition: all 0.5s ease;
-  border:none;
+  border: none;
+  border-radius:100px;
+
   &:hover {
     transition: all 0.5s ease;
-    background-color: #D0FD11;
+    background-color: #d0fd11;
   }
   &:hover span {
     color: #000;
     transition: all 0.5s ease;
   }
- 
 `;
 
 const ButtonText = styled.span`
@@ -35,8 +37,6 @@ const ButtonText = styled.span`
   font-family: "SatoshiMedium";
   margin-left: 10px;
   transition: all 0.5s ease;
-  
-
 `;
 
 const StyledText = styled.p`
@@ -57,15 +57,37 @@ const StyledTitle = styled.h2`
   color: #1a1a1a;
   padding: 5px 0;
   span {
-    color: #D0FD11;
+    color: #d0fd11;
   }
-  
 `;
 
 const ProductDetails = ({ products }) => {
   const [product, setProduct] = useState("");
   const { user } = useUserAuth();
   const [successMsg, setSuccessMsg] = useState("");
+
+  const sizes = [
+    "EU 38",
+    "EU 39",
+    "EU 40",
+    "EU 41",
+    "EU 42",
+    "EU 43",
+    "EU 44",
+    "EU 45",
+    "EU 46",
+    "EU 47",
+    "EU 48",
+    "EU 49",
+    "EU 50",
+    "EU 51",
+    "EU 52",
+  ];
+
+  const handleSizeSelection = (selectedSize) => {
+    console.log("Selected Size:", selectedSize);
+    // You can save this to state or use it to update the cart
+  };
 
   function GetCurrentProduct() {
     useEffect(() => {
@@ -97,7 +119,7 @@ const ProductDetails = ({ products }) => {
     <Container>
       {product ? (
         <Grid container key={id} columnSpacing={6}>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={12} md={6}>
             <img
               src={product.image}
               style={{
@@ -109,16 +131,25 @@ const ProductDetails = ({ products }) => {
           </Grid>
           <Grid item xs={12} sm={6}>
             <p>{successMsg}</p>
-            <StyledTitle>{product.productTitle}<span>.</span> </StyledTitle>
-            <StyledText>Brand: <span>{product.brandName}</span></StyledText>
+            <StyledTitle>
+              {product.productTitle}
+              <span>.</span>{" "}
+            </StyledTitle>
+            <StyledText>
+              <span>{product.brandName}</span>
+            </StyledText>
             <h3>{product.description}</h3>
-            <StyledText>Price: <span>{product.price}</span></StyledText>
+            <StyledText>
+              {" "}
+              <span>{product.price}</span>
+            </StyledText>
             <Grid item xs={12}>
               {" "}
-              <StyledButton onClick={AddToCart}>
-                <ButtonText>Add to cart</ButtonText>
-              </StyledButton>
             </Grid>
+            <SelectSize sizes={sizes} onSizeSelect={handleSizeSelection} />
+            <StyledButton onClick={AddToCart}>
+              <ButtonText>Add to cart</ButtonText>
+            </StyledButton>
           </Grid>
         </Grid>
       ) : (

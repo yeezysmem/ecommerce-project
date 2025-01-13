@@ -1,14 +1,12 @@
 import React, { useState } from "react";
-
 import { addDoc, collection } from "firebase/firestore";
 import { db, storage } from "../firebaseConfigs/firebaseConfig";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { Container, Grid, TextField } from "@mui/material";
+import { Container, Grid, TextField, MenuItem, Select, InputLabel, FormControl } from "@mui/material";
 import {
   getDownloadURL,
   ref,
-  uploadBytes,
   uploadBytesResumable,
 } from "firebase/storage";
 import styled from "styled-components";
@@ -68,7 +66,7 @@ const AddProduct = () => {
     if (!file) {
       alert("Please upload an image first!");
     }
-    const storageRef = ref(storage, `/files/${file.name}`); // progress can be paused and resumed. It also exposes progress updates. // Receives the storage reference and the file to upload.
+    const storageRef = ref(storage, `/files/${file.name}`); 
     const uploadTask = uploadBytesResumable(storageRef, file);
     uploadTask.on(
       "state_changed",
@@ -95,10 +93,12 @@ const AddProduct = () => {
       image: "",
       description: "",
       price: "",
+      category: "", // Додаємо поле для категорії
     },
     validationSchema: Yup.object({
       productTitle: Yup.string().min(5, "Must be at least 3 characters"),
       productType: Yup.string(),
+      category: Yup.string().required("Category is required"), // Перевірка на обов'язковість категорії
     }),
     onSubmit: (values) => {
       const storageRef = ref(storage, `/files/${file.name}`);
@@ -114,24 +114,21 @@ const AddProduct = () => {
         (err) => console.log(err),
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-            console.log(url);
+            addDoc(collection(db, "products"), {
+              productTitle: values.productTitle,
+              productType: values.productType,
+              brandName: values.brandName,
+              description: values.description,
+              image: url,
+              price: values.price,
+              category: values.category, // Збереження категорії
+            });
           });
         }
       );
-      uploadBytes(storageRef, file).then(() => {
-        getDownloadURL(storageRef).then((url) => {
-          addDoc(collection(db, "products"), {
-            productTitle: values.productTitle,
-            productType: values.productType,
-            brandName: values.brandName,
-            description: values.description,
-            image: url,
-            price: values.price,
-          });
-        });
-      });
     },
   });
+
   return (
     <Container>
       {user && user.email == "yeezysmem@gmail.com" ? (
@@ -152,20 +149,29 @@ const AddProduct = () => {
                     <StyledTitle>Add Product</StyledTitle>
                   </Grid>
                   <Grid item xs={12}>
-                    {/* {successMsg && (
-                  <>
-                    <div>{successMsg}</div>
-                  </>
-                )} */}
-                  </Grid>
-                  <Grid item xs={12}>
-                    {/* {errorMsg && (
-                  <>
-                    <div>{errorMsg}</div>
-                  </>
-                )} */}
-                  </Grid>
-                  <Grid item xs={12}>
+                    {/* Категорія */}
+                    <Grid container>
+                      <Grid item xs={12}>
+                        <FormControl fullWidth margin="normal">
+                          <InputLabel id="category-label">Category</InputLabel>
+                          <Select
+                            labelId="category-label"
+                            id="category"
+                            name="category"
+                            value={formik.values.category}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            label="Category"
+                          >
+                            <MenuItem value="Nike">Nike</MenuItem>
+                            <MenuItem value="Addidas">Addidas</MenuItem>
+                            <MenuItem value="Solomun">Solomun</MenuItem>
+                            <MenuItem value="NewBalance">NewBalance</MenuItem>
+                          </Select>
+                        </FormControl>
+                      </Grid>
+                    </Grid>
+                    {/* Решта полів форми */}
                     <Grid container>
                       <Grid item xs={12}>
                         <TextField
@@ -182,6 +188,7 @@ const AddProduct = () => {
                         />
                       </Grid>
                     </Grid>
+                    {/* Інші поля залишаються без змін */}
                     <Grid container>
                       <Grid item xs={12}>
                         <TextField
@@ -277,7 +284,7 @@ const AddProduct = () => {
           </form>
         </div>
       ) : (
-        <div>You dont have permissions </div>
+        <div>You don't have permission</div>
       )}
     </Container>
   );

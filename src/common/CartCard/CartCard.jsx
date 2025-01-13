@@ -82,7 +82,7 @@ const CartCard = (props) => {
       </Grid>
       <Grid item xs={3}>
         <Grid container justifyContent="center">
-          <Grid item xs={4}>
+          <Grid item xs={1}>
             <ControlPointIcon onClick={increaseQuantity} fontSize="medium" style={{ cursor: "pointer" }} />
           </Grid>
           <Grid item xs={4}>
