@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams,useNavigate } from "react-router-dom";
 import { addDoc, collection, doc, getDoc } from "firebase/firestore";
 import { db } from "../firebaseConfigs/firebaseConfig";
 import { Container, Grid } from "@mui/material";
@@ -110,6 +110,11 @@ const ProductDetails = ({ products }) => {
         setSuccessMsg(`Product ${product.productTitle} 1x added to cart`);
       });
     }
+    if (!user) {
+      alert("Please login to add items to cart");
+      navigate("/login"); // Перенаправлення на сторінку логіну
+      return;
+    }
   };
   GetCurrentProduct();
 
@@ -148,7 +153,7 @@ const ProductDetails = ({ products }) => {
             </Grid>
             <SelectSize sizes={sizes} onSizeSelect={handleSizeSelection} />
             <StyledButton onClick={AddToCart}>
-              <ButtonText>Add to cart</ButtonText>
+            <ButtonText>{user ? "Add to cart" : "Login to purchase"}</ButtonText>
             </StyledButton>
           </Grid>
         </Grid>
